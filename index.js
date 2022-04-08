@@ -71,13 +71,13 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'githubUsername',
-        message: 'Enter the Github Username:',
-        validate: githubUsername => {
-            if (githubUsernameInput) {
+        name: 'URL',
+        message: 'Add the URL for this GitHub project:',
+        validate: URL=> {
+            if (URL) {
                 return true; 
             } else {
-                console.log ('You must enter a Github Username');
+                console.log ('You must enter a Github Link');
                 return false;
             }
         }
