@@ -19,7 +19,8 @@
   # Usage
   Use inquirer from your command line to answer questions about your project.
   This project is using the license MIT. See https://opensource.org/licenses/MIT for more information.
-
+  # Walk Through Video
+  [Video Demo](./utils/README-Walkthrough)
   ## Contributing
   Latravia Gordon
   
