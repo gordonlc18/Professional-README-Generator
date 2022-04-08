@@ -1,86 +1,116 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-
-
-
 function renderLicenseBadge(license) {
-  switch (license) {
-    case 'MIT':
-      return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
-      break;
-    case 'GNU GLPv3':
-      return `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`;
-      break;
-    default:
-      return ``;
-      break;
-      
+  if (license !== "none") {
+    return `![GitHub license](https://img.shields.io/badge/license-${license}-blue.svg)
+    `;
   }
+  return "";
 }
-
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {
+function renderLicenseLink(license) {
+  let link;
   switch (license) {
-    case 'MIT':
-      return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
+    case "Apache":
+      link = "https://opensource.org/licenses/Apache-2.0";
       break;
-    case 'GNU GLPv3':
-      return `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`;
+
+    case "Boost":
+      link = "https://www.boost.org/LICENSE_1_0.txt";
       break;
-    default:
-      return ``;
+
+    case "BSD 3-clause":
+      link = "https://opensource.org/licenses/BSD-3-Clause";
       break;
-      
+
+    case "Eclipse":
+      link = "https://opensource.org/licenses/EPL-1.0";
+      break;
+
+    case "GNU GPL v3":
+      link = "https://www.gnu.org/licenses/gpl-3.0";
+      break;
+
+    case "IBM":
+      link = "https://opensource.org/licenses/IPL-1.0";
+      break;
+
+    case "ISC":
+      link = "https://opensource.org/licenses/ISC";
+      break;
+
+    case "MIT":
+      link = "https://opensource.org/licenses/MIT";
+      break;
+
+    case "Mozilla":
+      link = "https://opensource.org/licenses/MPL-2.0";
+      break;
+
+    case "SIL":
+      link = "https://opensource.org/licenses/OFL-1.1";
+      break;
+
+    case "WTFPL":
+      link = "http://www.wtfpl.net/about/";
+      break;
+
+    case "Zlib":
+      link = "https://opensource.org/licenses/Zlib";
+      break;
+
+    case "none":
+      link = "";
+      break;
   }
+  return link;
 }
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  switch (license) {
-    case 'MIT':
-      return  `Copyright &copy ${new Date().getFullYear()}.<br />Licensed under the ${renderLicenseLink(license)} license.`;
-      break;
-    case 'GNU GLPv3':
-      return `Copyright &copy ${new Date().getFullYear()}.<br />Licensed under ${renderLicenseLink(license)} license.`;
-      break;
-    default:
-      return ``;
-      break;
-  }
-
+  const link = renderLicenseLink(license);
+  const section = `This project is using the license ${license}. See ${link} for more information.`;
+  return section;
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  const {title, description, installation, usage, license, contribution, testing, github, email} = data;
-  return `# ${title}
-  ${renderLicenseBadge(license)}
+  return `# ${data.title}
+  ${renderLicenseBadge(data.license)}${renderLicenseLink(data.license)}
   ## Description
-  ${description}
+  ${data.description}
   ## Table of Contents
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Questions](#questions)
-  ---
+  * [Description](#description)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [License](#license)
+  * [Contributing](#contributing)
+  * [Tests](#tests)
+  * [Questions](#questions)
   ## Installation
-  ${installation}
-  ## Usage
-  ${usage}
-  ## License
-  ${renderLicenseSection(license)}
-  ---
-  ## Contributing to the Project
-  ${contribution}
+  To install necessary dependencies, please run the following command:
+  \' \' \'
+  ${data.installation}
+  \' \' \'
+  # Usage
+  ${data.usage}
+  ${renderLicenseSection(data.license)}
+  ## Contributing
+  ${data.contributing}
+  
   ## Tests
-  ${testing}
+  To test, please run the following command;
+  \' \' \'
   ## Questions
-  If you have any questions, my <a href="https://github.com/${github}">GitHub profile</a> is linked,
-  or you can email me at <a href = "mailto: ${email}">${email}</a>.
+  For any questions about the project, please contact me by either of the following links:
+  * Email = ${data.email}
+  or visit my GitHub profile:
+  * GitHub - ${
+    "[" + data.github + "]" + "(https://github.com/" + data.github + ")"
+  }
 `;
 }
+
 module.exports = generateMarkdown;
